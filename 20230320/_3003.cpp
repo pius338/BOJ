@@ -10,20 +10,17 @@ int main()
     for (int i = 0; i < 6 ; i++)
     {
         cin >> n;
-        if(n != arr[i])
-        {  
-            while(n != arr[i])
+        while(n != arr[i])
+        {
+            if(n < arr[i])
             {
-                if(n < arr[i])
-                {
-                    n++;
-                    r_arr[i]++;
-                }
-                else
-                {
-                    n--;
-                    r_arr[i]--;
-                }
+                n++;
+                r_arr[i]++;
+            }
+            else
+            {
+                n--;
+                r_arr[i]--;
             }
         }
     }
