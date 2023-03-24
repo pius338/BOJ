@@ -1,12 +1,12 @@
 #include <iostream>
-#include <stack>
+#include <queue>
 using namespace std;
 
 int main()
 {
     int n, m;
     string str;
-    stack<int> stc;
+    queue<int> que;
     cin >> n;
     for (int i = 0; i < n; i++)
     {
@@ -14,28 +14,35 @@ int main()
         if(str == "push")
         {
             cin >> m;
-            stc.push(m);
+            que.push(m);
         }
         else if(str == "pop")
         {
-            if(stc.empty())
+            if(que.empty())
                 cout << -1 << '\n';
             else
             {
-                cout << stc.top() << '\n';
-                stc.pop();
+                cout << que.front() << '\n';
+                que.pop();
             }
         }
         else if(str == "size")
-            cout << stc.size() << '\n';
+            cout << que.size() << '\n';
         else if(str == "empty")
-            cout << stc.empty() << '\n';
-        else if(str == "top")
+            cout << que.empty() << '\n';
+        else if(str == "front")
         {
-            if(stc.empty())
+            if(que.empty())
                 cout << -1 << '\n';
             else
-                cout << stc.top();
+                cout << que.front() << '\n';
+        }
+        else if(str == "back")
+        {
+            if(que.empty())
+                cout << -1 << '\n';
+            else
+                cout << que.back() << '\n';
         }
     }
 }
