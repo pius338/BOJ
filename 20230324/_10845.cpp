@@ -35,7 +35,7 @@ int main()
             if(stc.empty())
                 cout << -1 << '\n';
             else
-                cout << stc.top() << '\n';
+                cout << stc.top();
         }
     }
 }
