@@ -1,40 +1,37 @@
 #include <iostream>
+#include <queue>
 #include <vector>
 using namespace std;
 
 int main()
 {
-    int n, k,i_cnt = 0, cnt = 0;
+    queue<int> que;
+    vector<int> arr;
+    int n, k;
     cin >> n >> k;
-    vector<int> arr(n);
-    vector<int> r_arr(n + 1, 0);
-    for (int i = 1; i <= n; i++)
-        arr[i - 1] = i;
-    int i = 0;
-    while (1)
+    for (int i = 0; i < n; i++)
+        que.push(i + 1);
+    int i = 0, cnt = 0;
+    while(i < n)
     {
-        if(cnt == n * k)
-            break;
-        if(i == n)
+        if(cnt == k - 1)
         {
-            cout << 'a';
-            i = 0;
-        }
-        if(i_cnt == 2)
-        {
-            if(r_arr[arr[i]] == 0)
-            {
-                i_cnt = 0;
-                r_arr[arr[i]]++;
-                cout << arr[i] << ' ';
-            }
+            cnt = 0;
+            arr.push_back(que.front());
+            que.pop();
             i++;
         }
         else
         {
-            i++;
-            i_cnt++;
+            cnt++;
+            que.push(que.front());
+            que.pop();
         }
     }
+    cout << '<';
+    for (int i = 0; i < arr.size() - 1; i++)
+        cout << arr[i] << ", ";
+    cout << *(arr.end() - 1);
+    cout << '>';
     
 }
