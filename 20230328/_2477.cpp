@@ -43,7 +43,6 @@ int main()
         que.pop_front();
         i++;
     }
-    cout << fst << ' ' << sec;
     size = (t_w * t_l) - (arr[fst] * arr[sec]);
     cout << size * n;
 }
