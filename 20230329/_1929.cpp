@@ -12,8 +12,7 @@ void isprime(int n)
         if(is_prime[i])
             for(long long j = 2 * i; j <= n; j += i)
                 is_prime[j] = false;
-    }
-    
+    } 
 }
 
 int main()
