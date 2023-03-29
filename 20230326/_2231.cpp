@@ -31,7 +31,4 @@ int main()
         nbr++;
     }
     cout << 0;
-     
-    
-    
 }
