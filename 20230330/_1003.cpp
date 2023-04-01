@@ -27,5 +27,4 @@ int main()
         fibonacci(m);
         cout << zero << ' ' << one << '\n';
     }
-    
 }
