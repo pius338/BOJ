@@ -19,4 +19,4 @@ int main() {
 		m %= 3;
 	}
 	cout << result;
-}
+} 
