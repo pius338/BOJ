@@ -11,8 +11,6 @@ int main()
         cin >> arr[i];
     for (int i = 0; i < n; i++)
     {
-        if(!stc.empty())
-            cout << "\narr[i]: " << arr[i] << " top: " << stc.top().second << '\n';
         while(!stc.empty() && arr[i] > stc.top().second)
             stc.pop();
         if(stc.empty())
