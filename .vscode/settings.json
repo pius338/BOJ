@@ -41,6 +41,7 @@
         "fstream": "cpp",
         "limits": "cpp",
         "sstream": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "unordered_set": "cpp"
     }
 }
