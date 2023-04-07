@@ -68,18 +68,17 @@ int main()
          time++;
         switch (direc)
         {
-        case 0:
-            cur.second++;
-            break;
-        case 1:
-            cur.first++;
-            break;
-        case 2:
-            cur.second--;
-            break;
-        case 3:
-            cur.first--;
-            break;
+            case 0:
+                cur.second++;
+                break;
+            case 1:
+                cur.first++;
+                break;
+            case 2:
+                cur.second--;
+                break;
+            case 3:
+                cur.first--;
         }
         if((cur.first < 0 || cur.first >= n) || (cur.second < 0 || cur.second >= n))
             flag++;
