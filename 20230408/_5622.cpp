@@ -33,7 +33,7 @@ int main()
             k_cnt[i]++;
     for (int i = 0; i < a; i++)
         if(k_cnt[i])
-            flag++;
+            flag++;  
     if(flag)
         cout << "W";
     else
