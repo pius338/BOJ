@@ -8,7 +8,7 @@ int main()
 	while (m)
     {
         if(m % 2)
-            result *= n % v;
+            result = (result * n) % v;
         n = ((n % v) * (n % v)) % v;
         m /= 2;
     }
