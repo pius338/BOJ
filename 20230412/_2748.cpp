@@ -6,7 +6,7 @@ int main()
 {
     int n;
     cin >> n;
-    vector<int> arr(91);
+    vector<long long> arr(91);
      for (int i = 1; i <= n; i++)
     {
         if(i <= 2)
