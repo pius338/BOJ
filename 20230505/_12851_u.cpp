@@ -25,7 +25,7 @@ int main()
 			int curPos = que.front().first;
 			int curTm = que.front().second;
 			que.pop();
-			if (curPos < 0 || curPos > 100000 || curTm > minTm)
+			if (curTm > minTm || curPos < 0 || curPos > 100000)
 				continue;
 			if (isVisit[curPos] >= curTm)
 				isVisit[curPos] = curTm;
