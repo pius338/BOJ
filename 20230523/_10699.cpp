@@ -2,7 +2,5 @@
 using namespace std;
 
 int main() {
-  int n, m;
-  cin >> n >> m;
-  cout << 2 * m - n;
+  cout << "2023-05-23";
 }
