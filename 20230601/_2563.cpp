@@ -16,14 +16,6 @@ int main()
             for (int k = 0; k < 10; k++)
                 paper[x + j][y + k]++;
     }
-    for (int i = 0; i < 100; i++)
-    {
-        for (int j = 0; j < 100; j++)
-        {
-            cout << paper[i][j] << ' ';
-        }
-        cout << '\n';    
-    }
     int cnt = 0;
     for (int i = 0; i < 100; i++)
         for (int j = 0; j < 100; j++)
