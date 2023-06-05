@@ -92,7 +92,13 @@ int main()
 			break;
 		while (1)
 		{
-			printf("Event 1) New Customer, 2) Technician Ready, 3) Customer Service Assignment 4) Exit >> ");
+			printf("-----------Menu-----------\n");
+			printf("| 1 | New Customer       |\n");
+			printf("| 2 | Technician Ready   | \n");
+			printf("| 3 | Service Assignment | \n");
+			printf("| 4 | Exit               | \n");
+			printf("--------------------------\n");
+			printf("Enter command >> ");
 			if (scanf_s("%d", &command))
 			{
 				if (command >= 1 && command <= 4)
