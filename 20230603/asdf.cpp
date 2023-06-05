@@ -4,155 +4,173 @@
 
 typedef struct listNode* listPointer;
 typedef struct listNode {
-	char* name;
 	char model;
+	char* name;
+	char* state;
 	listPointer link;
 } listNode;
+listPointer rear;
 
-void insertBack(listPointer* head, char* name, char model)
+void insertBack(char* name, char model)
 {
-
 	listPointer newNode;
-	listPointer temp;
-	temp = *head;
 	newNode = (listPointer)malloc(sizeof(*newNode));
-	newNode->name = strdup(name);
+	newNode->name = _strdup(name);
+	newNode->state = " Waiting  ";
 	newNode->model = model;
 
-	while ((*head)->link != *head && temp->link != *head)
-		temp = temp->link;
-	temp->link = newNode;
-	newNode->link = *head;
+	newNode->link = rear->link;
+	rear->link = newNode;
+	rear = newNode;
 }
 
-int cerase(listPointer ptr)
+void cerase(listPointer ptr)
 {
-	if (ptr && ptr->link)
-	{
-		listPointer temp = ptr->link;
-		ptr->link = temp->link;
-		free(temp);
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
+	listPointer temp = ptr->link;
+	ptr->link = temp->link;
+	if (temp->link->model == 'H')
+		rear = ptr;
+	free(temp);
 }
 
-listPointer findByValue(listPointer head, char model)
+listPointer findByValue(char model)
 {
-	listPointer temp = head->link;
-	listPointer prev = head;
+	listPointer temp = rear->link;
 
-	while (temp != head)
+	while (temp->link != rear->link)
 	{
-		if (temp->model == model)
-			return prev;
-		prev = temp;
+		if (temp->link->model == model)
+			return temp;
 		temp = temp->link;
 	}
 	return NULL;
 }
 
-void printList(listPointer head)
+void printList()
 {
 	int i = 0;
 	listPointer temp;
-	temp = head;
-	
-	if(temp->link == head)
-		printf("Waiting line is empty.\n");
+	temp = rear->link;
+
+	if (temp->link == rear->link)
+		printf("\nWaiting line is empty.\n");
 	else
 	{
-		printf("Waiting line\n");
-		while (temp->link != head)
+		printf("\n----------------Waiting line-----------------");
+		while (temp->link != rear->link)
 		{
-			printf("%d : %s Model %c\n", ++i, temp->link->name, temp->link->model);
+			printf("\n| %d | %s", ++i, temp->link->name);
+			for (int j = 0; j < 15 - strlen(temp->link->name); j++)
+				printf(" ");
+			printf("| Model %c |", temp->link->model);
+			if(temp->link->state == " Waiting  ")
+				printf(" %s |", temp->link->state);
+			else
+				printf(" \033[0;32m%s\033[0;37m |", temp->link->state);
 			temp = temp->link;
 		}
+		printf("\n---------------------------------------------\n");
 	}
-	
+	printf("\n");
 }
 
 int main()
 {
-	listPointer head = (listPointer)malloc(sizeof(*head));
-	head->model = 'H';
-	head->link = head;
+	rear = (listPointer)malloc(sizeof(listNode));
+	rear->model = 'H';
+	rear->link = rear;
+
 	int command;
 	char iName[100];
 	char model;
+	char doneModel;
 	int isDone = 0;
+	int isWork[3] = {0, 0, 0};
 	while (1)
 	{
 		if (isDone)
 			break;
 		while (1)
 		{
-			printf("Event 1: New Customer, 2: Technician Ready, 3: Exit >> ");
-			if(scanf("%d", &command))
+			printf("Event 1) New Customer, 2) Technician Ready, 3) Customer Service Assignment 4) Exit >> ");
+			if (scanf_s("%d", &command))
 			{
-				if(command >= 1 && command <= 3)
+				if (command >= 1 && command <= 4)
 					break;
 				else
 					printf("Wrong input.\n");
-			} else {
+			}
+			else {
 				printf("Please enter a integer value.\n");
 				int c;
 				while ((c = getchar()) != '\n' && c != EOF);
-        	}
+			}
 		}
-		
+
 
 		switch (command)
 		{
-			case 1:
-				
-				while(1)
-				{
-					printf("Enter Model [A, B, C]: ");
-					scanf(" %c",&model, sizeof(model));
-					if(model == 'A' || model == 'B' || model == 'C')
-						break;
-					else
-						printf("Wrong input.\n");
-				}
-				printf("Enter name: ");
-				scanf(" %s", iName, sizeof(iName));
-				insertBack(&head, iName, model);
-				printList(head);
-				break;
-			case 2:
-				if (head->link == head)
-					printf("There are no customers.\n");
+		case 1:
+			while (1)
+			{
+				printf("Enter Model [A, B, C]: ");
+				scanf_s(" %c", &model, sizeof(model));
+				if (model == 'A' || model == 'B' || model == 'C')
+					break;
 				else
+					printf("\nWrong input.\n");
+			}
+			while (1)
+			{
+				printf("Enter name(Max 15 letter): ");
+				scanf_s(" %s", iName, sizeof(iName));
+				if (strlen(iName) > 15)
+					printf("\nName is too long.\n");
+				else
+					break;
+			}
+			insertBack(iName, model);
+			printList();
+			break;
+		case 2:
+			
+			while (1)
+			{
+				printf("Please enter the model for which the work is completed [A, B, C]: ");
+				scanf_s(" %c", &doneModel, sizeof(doneModel));
+				if (doneModel == 'A' || doneModel == 'B' || doneModel == 'C')
+					break;
+				else
+					printf("\nWrong input.\n");
+			}
+			listPointer done = findByValue(doneModel);
+			if (isWork[doneModel - 65])
+			{
+				isWork[doneModel - 65] = 0;
+				printf("\nCustomer %s's service for model %c is done.\n", done->link->name, done->link->model);
+				cerase(done);
+				printList();
+			}	
+			else
+				printf("\nThis repairman is already free now.\n");
+			break;
+		case 3:
+			for (int i = 0; i < 3; i++)
+			{
+				listPointer done = findByValue(i + 65);
+				if (!isWork[i] && done != NULL)
 				{
-					char doneModel;
-					while(1)
-					{
-						printf("Please enter the model for which the work is completed [A, B, C]: ");
-						scanf(" %c",&doneModel, sizeof(doneModel));
-						if(doneModel == 'A' || doneModel == 'B' || doneModel == 'C')
-							break;
-						else
-							printf("Wrong input.\n");
-					}
-					listPointer done = findByValue(head, doneModel);
-					if(done != NULL)
-					{
-						printf("Customer %s's service for model %c has been completed.\n", done->link->name, done->link->model);
-						cerase(done);
-						printList(head);
-					}
-					else
-						printf("There are no customers waiting model %c.\n", doneModel);
+					printf("Customer %s's service for model %c start.\n", done->link->name, done->link->model);
+					done->link->state = "In service";
+					isWork[i] = 1;
 				}
-				break;
-			case 3:
-				printf("Exit service...");
-				isDone = 1;
-				break;
+			}
+			printf("\n");
+			break;
+		case 4:
+			printf("\nThank you for using service. :)\n Exit now...\n");
+			isDone = 1;
+			break;
 		}
 	}
 }
