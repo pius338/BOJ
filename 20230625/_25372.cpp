@@ -15,8 +15,5 @@ int main()
         arr.push_back(res);
     }
     for (int i = 0; i < arr.size(); i++)
-    {
         cout << arr[i] << "\n";
-    }
-    
 }
